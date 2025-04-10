@@ -9,9 +9,15 @@ using System.Windows.Forms;
 
 namespace Comercio_02
 {
-    internal class ConectaCli
+    public class ConectaCli
     {
-        string conexao = "Data Source = JUN0675611W11-1\\BDSENAC; Initial Catalog = BDTI46; User ID = senaclivre; Password=senaclivre";
+
+        public ConectaCli()
+        {
+
+        }
+
+        string conexao = "Data Source = JUN0675611W11-1\\BDSENAC; Initial Catalog = BD_Comercio_02; User ID = senaclivre; Password=senaclivre";
 
         public SqlConnection con = null;
         SqlDataAdapter da = null;
@@ -80,19 +86,23 @@ namespace Comercio_02
             con.Close();
         }
 
-        public DataTable AtualizaGride(DataTable x)
+        public DataTable AtualizaGride(DataGridView dataGridView)
         {
             string strSql;
             strSql = "SELECT * FROM CadClientes";
 
-            con = new SqlConnection(conexao);
-            SqlDataAdapter da = new SqlDataAdapter (strSql, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            x = dt;
-            con.Close ();
-            return x;
+            using (SqlConnection con = new SqlConnection(conexao))
+            {
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(strSql, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dataGridView.DataSource = dt;
+
+                return dt;
+            }
+
         }
 
         public DataTable PesquisaNome(DataTable x, string txtPes)

@@ -42,10 +42,11 @@
             this.txtCadCliente = new System.Windows.Forms.Label();
             this.dgCadClientes = new System.Windows.Forms.DataGridView();
             this.txtPesquisaCadCli = new System.Windows.Forms.TextBox();
-            this.btnLimpar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnInserir = new System.Windows.Forms.Button();
+            this.btnLimpar = new System.Windows.Forms.Button();
+            this.btnpesquisar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgCadClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +98,7 @@
             this.txtidcliente.Name = "txtidcliente";
             this.txtidcliente.Size = new System.Drawing.Size(76, 20);
             this.txtidcliente.TabIndex = 13;
+            this.txtidcliente.TextChanged += new System.EventHandler(this.txtidcliente_TextChanged);
             // 
             // lblDataCliente
             // 
@@ -165,59 +167,65 @@
             this.dgCadClientes.Name = "dgCadClientes";
             this.dgCadClientes.Size = new System.Drawing.Size(296, 150);
             this.dgCadClientes.TabIndex = 19;
+            this.dgCadClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCadClientes_CellContentClick);
             // 
             // txtPesquisaCadCli
             // 
             this.txtPesquisaCadCli.Location = new System.Drawing.Point(14, 154);
             this.txtPesquisaCadCli.Name = "txtPesquisaCadCli";
-            this.txtPesquisaCadCli.Size = new System.Drawing.Size(296, 20);
+            this.txtPesquisaCadCli.Size = new System.Drawing.Size(218, 20);
             this.txtPesquisaCadCli.TabIndex = 20;
-            // 
-            // btnLimpar
-            // 
-            this.btnLimpar.Location = new System.Drawing.Point(235, 335);
-            this.btnLimpar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(56, 19);
-            this.btnLimpar.TabIndex = 21;
-            this.btnLimpar.Text = "Limpar";
-            this.btnLimpar.UseVisualStyleBackColor = true;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(167, 335);
+            this.btnExcluir.Location = new System.Drawing.Point(176, 335);
             this.btnExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(56, 19);
             this.btnExcluir.TabIndex = 22;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnAlterar
             // 
-            this.btnAlterar.Location = new System.Drawing.Point(97, 335);
+            this.btnAlterar.Location = new System.Drawing.Point(96, 335);
             this.btnAlterar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(56, 19);
             this.btnAlterar.TabIndex = 23;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnInserir
             // 
-            this.btnInserir.Location = new System.Drawing.Point(29, 335);
+            this.btnInserir.Location = new System.Drawing.Point(15, 335);
             this.btnInserir.Margin = new System.Windows.Forms.Padding(2);
             this.btnInserir.Name = "btnInserir";
             this.btnInserir.Size = new System.Drawing.Size(56, 19);
             this.btnInserir.TabIndex = 24;
             this.btnInserir.Text = "Inserir";
             this.btnInserir.UseVisualStyleBackColor = true;
+            this.btnInserir.Click += new System.EventHandler(this.btnInserir_Click);
+            // 
+            // btnLimpar
+            // 
+            this.btnLimpar.Location = new System.Drawing.Point(254, 335);
+            this.btnLimpar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpar.Name = "btnLimpar";
+            this.btnLimpar.Size = new System.Drawing.Size(56, 19);
+            this.btnLimpar.TabIndex = 21;
+            this.btnLimpar.Text = "Limpar";
+            this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // CadClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 358);
+            this.ClientSize = new System.Drawing.Size(325, 360);
+            this.Controls.Add(this.btnpesquisar);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnAlterar);
@@ -260,9 +268,10 @@
         private System.Windows.Forms.Label txtCadCliente;
         private System.Windows.Forms.DataGridView dgCadClientes;
         private System.Windows.Forms.TextBox txtPesquisaCadCli;
-        private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnInserir;
+        private System.Windows.Forms.Button btnLimpar;
+        private System.Windows.Forms.Button btnpesquisar;
     }
 }
