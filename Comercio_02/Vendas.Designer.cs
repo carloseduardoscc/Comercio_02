@@ -287,6 +287,7 @@
             this.btnConfirmarCompra.TabIndex = 18;
             this.btnConfirmarCompra.Text = "Confirmar compra";
             this.btnConfirmarCompra.UseVisualStyleBackColor = true;
+            this.btnConfirmarCompra.Click += new System.EventHandler(this.btnConfirmarCompra_Click);
             // 
             // btnSelecionarCliente
             // 

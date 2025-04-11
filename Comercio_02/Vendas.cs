@@ -44,6 +44,7 @@ namespace Comercio_02
             if (resultado == DialogResult.OK)
             {
                 txtIdProduto.Text = form.id.ToString();
+                conectaProd.id = form.id;
                 txtNomeProduto.Text = form.produto.ToString();
                 txtPrecoUnitario.Text = conectaProd.PesquisaPreco().ToString();
             }
@@ -82,12 +83,15 @@ namespace Comercio_02
                 // Preenche os dados do item da venda
                 conectaItensVendas.idVenda = Int32.Parse(txtId.Text); // ID da venda
                 conectaItensVendas.idProduto = idProduto; // ID do produto
-                conectaItensVendas.Quantidade = desconto; // Quantidade (substitua conforme necessário)
+                conectaItensVendas.Quantidade = Int32.Parse(txtQuantidade.Text); // Quantidade (substitua conforme necessário)
                 conectaItensVendas.Desconto = desconto; // Desconto (substitua conforme necessário)
                 conectaItensVendas.InserirItemVenda();
 
                 // Atualiza a grid com os itens da venda
-                conectaItensVendas.AtualizaGride(dtgProdutos);
+                conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(txtId.Text));
+
+                // Atualiza o total da venda
+                txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
 
 
             }
@@ -98,6 +102,7 @@ namespace Comercio_02
             }
         }
 
+        //ATUALIZA OS DADOS
         private void txtQuantidade_TextChanged(object sender, EventArgs e)
         {
             if (txtQuantidade.Text != "" && txtPrecoUnitario.Text != "" && txtDesconto.Text != "")
@@ -109,8 +114,13 @@ namespace Comercio_02
                 decimal totalDesconto = subtotal - (subtotal * desconto);
                 txtTotalSemDesconto.Text = subtotal.ToString();
                 txtTotalComDesconto.Text = totalDesconto.ToString();
-                txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
             }
+        }
+
+        private void btnConfirmarCompra_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

@@ -82,13 +82,18 @@ namespace Comercio_02
             con.Close();
         }
 
-        public DataTable AtualizaGride(DataGridView dataGridView)
+        public DataTable AtualizaGride(DataGridView dataGridView, int idVenda)
         {
-            string strSql;
-            strSql = "SELECT V.id AS idVenda, P.Produto, I.Quantidade, I.Desconto " +
-                     "FROM ItensVendas I " +
-                     "INNER JOIN Vendas V ON I.idVenda = V.id " +
-                     "INNER JOIN CadProdutos P ON I.idProduto = P.id";
+            string strSql = @"
+        SELECT 
+            P.Produto, 
+            I.Quantidade,
+            I.Desconto,
+            ((I.Quantidade * P.Preco) - ((P.Preco * I.Quantidade) * I.Desconto / 100)) AS TotalComDesconto
+        FROM ItensVendas I
+        INNER JOIN Vendas V ON I.idVenda = V.id
+        INNER JOIN CadProdutos P ON I.idProduto = P.id
+        WHERE V.id = "+idVenda;
 
             using (SqlConnection con = new SqlConnection(conexao))
             {
@@ -102,6 +107,7 @@ namespace Comercio_02
                 return dt;
             }
         }
+
 
         public DataTable PesquisaItemVenda(DataTable x, string txtPes)
         {
@@ -143,10 +149,11 @@ namespace Comercio_02
         {
             decimal preco = reader.GetDecimal(0);  // Preço do produto
             int quantidade = reader.GetInt32(1);   // Quantidade
-            decimal desconto = reader.GetDecimal(2); // Desconto
+            decimal desconto = reader.GetInt32(2); // Desconto
+                decimal subtotal = preco * quantidade;
 
             // Calcula o total do item (preço * quantidade - desconto)
-            decimal totalItem = (preco * quantidade) - desconto;
+            decimal totalItem = subtotal - (subtotal * desconto);
             totalVenda += totalItem;  // Soma o total do item ao total da venda
         }
         reader.Close();
