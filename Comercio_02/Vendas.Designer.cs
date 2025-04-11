@@ -174,9 +174,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(371, 213);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 13);
+            this.label8.Size = new System.Drawing.Size(64, 13);
             this.label8.TabIndex = 1;
-            this.label8.Text = "Desconto";
+            this.label8.Text = "Desconto %";
             // 
             // label9
             // 
@@ -211,6 +211,7 @@
             this.txtDesconto.Name = "txtDesconto";
             this.txtDesconto.Size = new System.Drawing.Size(100, 20);
             this.txtDesconto.TabIndex = 8;
+            this.txtDesconto.TextChanged += new System.EventHandler(this.txtQuantidade_TextChanged);
             // 
             // txtTotalComDesconto
             // 
@@ -232,6 +233,7 @@
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(100, 20);
             this.txtQuantidade.TabIndex = 12;
+            this.txtQuantidade.TextChanged += new System.EventHandler(this.txtQuantidade_TextChanged);
             // 
             // txtPrecoUnitario
             // 
@@ -239,6 +241,7 @@
             this.txtPrecoUnitario.Name = "txtPrecoUnitario";
             this.txtPrecoUnitario.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoUnitario.TabIndex = 13;
+            this.txtPrecoUnitario.TextChanged += new System.EventHandler(this.txtQuantidade_TextChanged);
             // 
             // dtgProdutos
             // 
@@ -256,6 +259,7 @@
             this.btnAdicionar.TabIndex = 15;
             this.btnAdicionar.Text = "Adicionar";
             this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
             // 
             // btnAlterar
             // 

@@ -44,6 +44,8 @@
             this.lblMarca = new System.Windows.Forms.Label();
             this.lblProduto = new System.Windows.Forms.Label();
             this.lblidprod = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPreco = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgCadClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,10 +108,11 @@
             this.btnInserir.TabIndex = 49;
             this.btnInserir.Text = "Inserir";
             this.btnInserir.UseVisualStyleBackColor = true;
+            this.btnInserir.Click += new System.EventHandler(this.btnInserir_Click);
             // 
             // txtdatacadproduto
             // 
-            this.txtdatacadproduto.Location = new System.Drawing.Point(63, 106);
+            this.txtdatacadproduto.Location = new System.Drawing.Point(63, 130);
             this.txtdatacadproduto.Margin = new System.Windows.Forms.Padding(2);
             this.txtdatacadproduto.Mask = "00/00/0000";
             this.txtdatacadproduto.Name = "txtdatacadproduto";
@@ -153,7 +156,7 @@
             // 
             this.lblData.AutoSize = true;
             this.lblData.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblData.Location = new System.Drawing.Point(6, 106);
+            this.lblData.Location = new System.Drawing.Point(6, 130);
             this.lblData.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblData.Name = "lblData";
             this.lblData.Size = new System.Drawing.Size(30, 13);
@@ -204,11 +207,31 @@
             this.lblidprod.TabIndex = 43;
             this.lblidprod.Text = "ID";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(6, 108);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 40;
+            this.label1.Text = "Preco";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // txtPreco
+            // 
+            this.txtPreco.Location = new System.Drawing.Point(63, 105);
+            this.txtPreco.Name = "txtPreco";
+            this.txtPreco.Size = new System.Drawing.Size(100, 20);
+            this.txtPreco.TabIndex = 53;
+            // 
             // CadProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 379);
+            this.Controls.Add(this.txtPreco);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnAlterar);
@@ -219,6 +242,7 @@
             this.Controls.Add(this.txtProduto);
             this.Controls.Add(this.txtidCadproduto);
             this.Controls.Add(this.lblData);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblModelo);
             this.Controls.Add(this.lblMarca);
             this.Controls.Add(this.lblProduto);
@@ -250,5 +274,7 @@
         private System.Windows.Forms.Label lblMarca;
         private System.Windows.Forms.Label lblProduto;
         private System.Windows.Forms.Label lblidprod;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPreco;
     }
 }

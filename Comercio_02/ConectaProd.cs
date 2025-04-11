@@ -17,6 +17,7 @@ public class ConectaProd
     public string Marca { get; set; }
     public string Modelo { get; set; }
     public DateTime Data { get; set; }
+    public decimal Preco { get; set; }
 
     // CRUD - Inserir produto
     public void InserirProduto()
@@ -24,7 +25,8 @@ public class ConectaProd
         string sql;
         SqlCommand cmd;
         con = new SqlConnection(conexao);
-        sql = "INSERT INTO Produtos (Produto, Marca, Modelo, Data) VALUES (@Produto, @Marca, @Modelo, @Data)";
+        // Adiciona a coluna Preco na instrução SQL
+        sql = "INSERT INTO CadProdutos (Produto, Marca, Modelo, Data, Preco) VALUES (@Produto, @Marca, @Modelo, @Data, @Preco)";
 
         con.Open();
         cmd = new SqlCommand(sql, con);
@@ -32,6 +34,7 @@ public class ConectaProd
         cmd.Parameters.AddWithValue("@Marca", Marca);
         cmd.Parameters.AddWithValue("@Modelo", Modelo);
         cmd.Parameters.AddWithValue("@Data", Data);
+        cmd.Parameters.AddWithValue("@Preco", Preco);  // Parâmetro para o preço
 
         cmd.ExecuteNonQuery();
         MessageBox.Show("Produto adicionado!");
@@ -44,7 +47,8 @@ public class ConectaProd
         string sql;
         SqlCommand cmd;
         con = new SqlConnection(conexao);
-        sql = "UPDATE Produtos SET Produto = @Produto, Marca = @Marca, Modelo = @Modelo, Data = @Data WHERE id = @id";
+        // Atualiza a coluna Preco no SQL
+        sql = "UPDATE CadProdutos SET Produto = @Produto, Marca = @Marca, Modelo = @Modelo, Data = @Data, Preco = @Preco WHERE id = @id";
 
         con.Open();
         cmd = new SqlCommand(sql, con);
@@ -53,6 +57,7 @@ public class ConectaProd
         cmd.Parameters.AddWithValue("@Marca", Marca);
         cmd.Parameters.AddWithValue("@Modelo", Modelo);
         cmd.Parameters.AddWithValue("@Data", Data);
+        cmd.Parameters.AddWithValue("@Preco", Preco);  // Parâmetro para o preço
 
         cmd.ExecuteNonQuery();
         MessageBox.Show("Produto alterado!");
@@ -65,7 +70,7 @@ public class ConectaProd
         string sql;
         SqlCommand cmd;
         con = new SqlConnection(conexao);
-        sql = "DELETE FROM Produtos WHERE id = @id";
+        sql = "DELETE FROM CadProdutos WHERE id = @id";
 
         con.Open();
         cmd = new SqlCommand(sql, con);
@@ -79,7 +84,8 @@ public class ConectaProd
     public DataTable AtualizaGride(DataGridView dataGridView)
     {
         string strSql;
-        strSql = "SELECT * FROM Produtos";
+        // Agora a consulta SQL inclui o campo Preco
+        strSql = "SELECT id, Produto, Marca, Modelo, Data, Preco FROM CadProdutos";
 
         using (SqlConnection con = new SqlConnection(conexao))
         {
@@ -98,7 +104,8 @@ public class ConectaProd
     public DataTable PesquisaProduto(DataTable x, string txtPes)
     {
         string strSql;
-        strSql = "SELECT * FROM Produtos WHERE Produto LIKE '%" + txtPes + "%'";
+        // Agora a consulta SQL inclui o campo Preco
+        strSql = "SELECT id, Produto, Marca, Modelo, Data, Preco FROM CadProdutos WHERE Produto LIKE '%" + txtPes + "%'";
         con = new SqlConnection(conexao);
         da = new SqlDataAdapter(strSql, con);
         DataTable dt = new DataTable();
@@ -107,5 +114,18 @@ public class ConectaProd
         x = dt;
         con.Close();
         return x;
+    }
+
+    public decimal PesquisaPreco()
+    {
+        string strSql = "SELECT Preco FROM CadProdutos WHERE id = @id";
+        con = new SqlConnection(conexao);
+        SqlCommand cmd = new SqlCommand(strSql, con);
+        cmd.Parameters.AddWithValue("@id", id);
+
+      
+        con.Open();
+        object result = cmd.ExecuteScalar();
+        return Convert.ToDecimal(result);
     }
 }

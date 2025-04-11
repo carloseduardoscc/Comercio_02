@@ -21,5 +21,15 @@ namespace Comercio_02
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnInserir_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
