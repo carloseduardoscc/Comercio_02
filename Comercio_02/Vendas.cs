@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Comercio_02
 {
@@ -20,6 +22,21 @@ namespace Comercio_02
         public Vendas()
         {
             InitializeComponent();
+            atualizarVendasDisponiveis();
+        }
+
+        private void atualizarVendasDisponiveis()
+        {
+            SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT idVenda FROM ItensVendas");
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                if(!cbId.Items.Contains(id)){
+                    cbId.Items.Add(id);
+                }
+
+            }
+            cbId.Items.Add("");
         }
 
         private void btnSelecionarCliente_Click(object sender, EventArgs e)
@@ -72,23 +89,24 @@ namespace Comercio_02
                 }
 
                 // Se a venda ainda não foi registrada, cria uma nova venda
-                if (txtId == null || string.IsNullOrEmpty(txtId.Text))
+                if (cbId.SelectedItem == null || string.IsNullOrEmpty(cbId.SelectedItem.ToString()))
                 {
                     conectaVendas.idCliente = idCliente;
                     conectaVendas.DataCompra = dtDataCompra.Value;
                     conectaVendas.InserirVenda();
-                    txtId.Text = conectaVendas.id.ToString(); // Atualiza o campo txtId com o id da nova venda
+                    atualizarVendasDisponiveis();
+                    cbId.SelectedIndex = cbId.Items.Count - 2;
                 }
 
                 // Preenche os dados do item da venda
-                conectaItensVendas.idVenda = Int32.Parse(txtId.Text); // ID da venda
+                conectaItensVendas.idVenda = Int32.Parse(cbId.SelectedItem.ToString()); // ID da venda
                 conectaItensVendas.idProduto = idProduto; // ID do produto
                 conectaItensVendas.Quantidade = Int32.Parse(txtQuantidade.Text); // Quantidade (substitua conforme necessário)
                 conectaItensVendas.Desconto = desconto; // Desconto (substitua conforme necessário)
                 conectaItensVendas.InserirItemVenda();
 
                 // Atualiza a grid com os itens da venda
-                conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(txtId.Text));
+                conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
 
                 // Atualiza o total da venda
                 txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
@@ -121,6 +139,46 @@ namespace Comercio_02
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void cbId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string idVenda = cbId.SelectedItem.ToString();
+            if (cbId.SelectedItem.ToString() != "")
+            {
+                SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM ItensVendas I INNER JOIN Vendas V ON I.idVenda = V.id INNER JOIN CadClientes C ON V.idCliente = C.id WHERE I.idVenda = " + idVenda);
+                if (reader.Read())
+                {
+                    txtIdCliente.Text = reader.GetInt32(0).ToString();
+                    txtNomeCliente.Text = reader.GetString(1).ToString();
+                    conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
+                }
+                else
+                {
+                    MessageBox.Show("Venda com id " + idVenda + " não existe!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                limparDados();
+            }
+        }
+
+        public void limparDados()
+        {
+            txtIdProduto.Clear();
+            txtNomeProduto.Clear();
+            txtDesconto.Clear();
+            txtPrecoUnitario.Clear();
+            txtQuantidade.Clear();
+            txtTotalSemDesconto.Clear();
+            txtTotalComDesconto.Clear();
+            txtIdCliente.Clear();
+            txtNomeCliente.Clear();
+            dtgProdutos.DataSource = null;
+            dtgProdutos.Rows.Clear();
+            dtgProdutos.Columns.Clear();
+
         }
     }
 }

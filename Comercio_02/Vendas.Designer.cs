@@ -58,6 +58,7 @@
             this.btnSelecionarCliente = new System.Windows.Forms.Button();
             this.btnSelecionarProduto = new System.Windows.Forms.Button();
             this.dtDataCompra = new System.Windows.Forms.DateTimePicker();
+            this.cbId = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dtgProdutos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,8 +96,7 @@
             this.txtId.Location = new System.Drawing.Point(17, 162);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(94, 20);
-            this.txtId.TabIndex = 2;
-            // 
+            this.txtId.TabIndex = 2;            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -316,11 +316,21 @@
             this.dtDataCompra.Size = new System.Drawing.Size(100, 20);
             this.dtDataCompra.TabIndex = 21;
             // 
+            // cbId
+            // 
+            this.cbId.FormattingEnabled = true;
+            this.cbId.Location = new System.Drawing.Point(17, 93);
+            this.cbId.Name = "cbId";
+            this.cbId.Size = new System.Drawing.Size(121, 21);
+            this.cbId.TabIndex = 23;
+            this.cbId.SelectedIndexChanged += new System.EventHandler(this.cbId_SelectedIndexChanged);
+            // 
             // Vendas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 513);
+            this.Controls.Add(this.cbId);
             this.Controls.Add(this.dtDataCompra);
             this.Controls.Add(this.btnSelecionarProduto);
             this.Controls.Add(this.btnSelecionarCliente);
@@ -391,5 +401,6 @@
         private System.Windows.Forms.Button btnSelecionarCliente;
         private System.Windows.Forms.Button btnSelecionarProduto;
         private System.Windows.Forms.DateTimePicker dtDataCompra;
+        private System.Windows.Forms.ComboBox cbId;
     }
 }

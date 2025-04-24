@@ -85,15 +85,15 @@ namespace Comercio_02
         public DataTable AtualizaGride(DataGridView dataGridView, int idVenda)
         {
             string strSql = @"
-        SELECT 
-            P.Produto, 
-            I.Quantidade,
-            I.Desconto,
-            ((I.Quantidade * P.Preco) - ((P.Preco * I.Quantidade) * I.Desconto / 100)) AS TotalComDesconto
-        FROM ItensVendas I
-        INNER JOIN Vendas V ON I.idVenda = V.id
-        INNER JOIN CadProdutos P ON I.idProduto = P.id
-        WHERE V.id = "+idVenda;
+            SELECT 
+                P.Produto, 
+                I.Quantidade,
+                I.Desconto,
+                ((I.Quantidade * P.Preco) - ((P.Preco * I.Quantidade) * I.Desconto / 100)) AS TotalComDesconto
+            FROM ItensVendas I
+            INNER JOIN Vendas V ON I.idVenda = V.id
+            INNER JOIN CadProdutos P ON I.idProduto = P.id
+            WHERE V.id = "+idVenda;
 
             using (SqlConnection con = new SqlConnection(conexao))
             {
@@ -130,36 +130,44 @@ namespace Comercio_02
 
         public decimal CalcularTotalVenda()
         {
-            string strSql = @"
-        SELECT P.Preco, I.Quantidade, I.Desconto
-        FROM ItensVendas I
-        INNER JOIN CadProdutos P ON I.idProduto = P.id
-        WHERE I.idVenda = @idVenda";
+                string strSql = @"
+            SELECT P.Preco, I.Quantidade, I.Desconto
+            FROM ItensVendas I
+            INNER JOIN CadProdutos P ON I.idProduto = P.id
+            WHERE I.idVenda = @idVenda";
 
-        con = new SqlConnection(conexao);
-        SqlCommand cmd = new SqlCommand(strSql, con);
-        cmd.Parameters.AddWithValue("@idVenda", idVenda);
+            con = new SqlConnection(conexao);
+            SqlCommand cmd = new SqlCommand(strSql, con);
+            cmd.Parameters.AddWithValue("@idVenda", idVenda);
 
-        decimal totalVenda = 0;
+            decimal totalVenda = 0;
 
-        con.Open();
-        SqlDataReader reader = cmd.ExecuteReader();
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
 
-        while (reader.Read())
-        {
-            decimal preco = reader.GetDecimal(0);  // Preço do produto
-            int quantidade = reader.GetInt32(1);   // Quantidade
-            decimal desconto = reader.GetInt32(2); // Desconto
+            while (reader.Read())
+            {
+                decimal preco = reader.GetDecimal(0);  // Preço do produto
+                int quantidade = reader.GetInt32(1);   // Quantidade
+                decimal desconto = reader.GetInt32(2); // Desconto
                 decimal subtotal = preco * quantidade;
 
-            // Calcula o total do item (preço * quantidade - desconto)
-            decimal totalItem = subtotal - (subtotal * desconto);
-            totalVenda += totalItem;  // Soma o total do item ao total da venda
-        }
-        reader.Close();
-        con.Close();
+                // Calcula o total do item (preço * quantidade - desconto)
+                decimal totalItem = subtotal - (subtotal * (desconto/100));
+                totalVenda += totalItem;  // Soma o total do item ao total da venda
+            }
+            reader.Close();
+            con.Close();
 
-        return totalVenda;
+            return totalVenda;
+        }
+
+        public SqlDataReader consultaPersonalizada(string strSql) {
+
+            con = new SqlConnection(conexao);
+            SqlCommand cmd = new SqlCommand(strSql, con);
+            con.Open();
+            return cmd.ExecuteReader();
         }
     }
 }
