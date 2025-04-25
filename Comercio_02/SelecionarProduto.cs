@@ -20,6 +20,11 @@ namespace Comercio_02
         {
             InitializeComponent();
             conectaProd.AtualizaGride(dtgProdutos);
+            if (dtgProdutos.Columns.Contains("Preco"))
+            {
+                dtgProdutos.Columns["Preco"].DefaultCellStyle.Format = "C2";
+                dtgProdutos.Columns["Preco"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

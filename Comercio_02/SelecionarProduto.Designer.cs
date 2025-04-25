@@ -38,7 +38,7 @@
             this.dtgProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgProdutos.Location = new System.Drawing.Point(12, 12);
             this.dtgProdutos.Name = "dtgProdutos";
-            this.dtgProdutos.Size = new System.Drawing.Size(525, 314);
+            this.dtgProdutos.Size = new System.Drawing.Size(747, 314);
             this.dtgProdutos.TabIndex = 0;
             this.dtgProdutos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -46,7 +46,7 @@
             // 
             this.btnSelecionar.Location = new System.Drawing.Point(12, 334);
             this.btnSelecionar.Name = "btnSelecionar";
-            this.btnSelecionar.Size = new System.Drawing.Size(525, 42);
+            this.btnSelecionar.Size = new System.Drawing.Size(747, 42);
             this.btnSelecionar.TabIndex = 1;
             this.btnSelecionar.Text = "Selecionar";
             this.btnSelecionar.UseVisualStyleBackColor = true;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 388);
+            this.ClientSize = new System.Drawing.Size(771, 388);
             this.Controls.Add(this.btnSelecionar);
             this.Controls.Add(this.dtgProdutos);
             this.Name = "SelecionarProduto";

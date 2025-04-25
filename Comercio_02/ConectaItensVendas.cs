@@ -85,15 +85,16 @@ namespace Comercio_02
         public DataTable AtualizaGride(DataGridView dataGridView, int idVenda)
         {
             string strSql = @"
-            SELECT 
-                P.Produto, 
-                I.Quantidade,
-                I.Desconto,
-                ((I.Quantidade * P.Preco) - ((P.Preco * I.Quantidade) * I.Desconto / 100)) AS TotalComDesconto
-            FROM ItensVendas I
-            INNER JOIN Vendas V ON I.idVenda = V.id
-            INNER JOIN CadProdutos P ON I.idProduto = P.id
-            WHERE V.id = "+idVenda;
+        SELECT 
+            I.id,
+            P.Produto, 
+            I.Quantidade,
+            CAST(I.Desconto AS decimal(5,2)) / 100 AS Desconto,
+            ((I.Quantidade * P.Preco) - ((P.Preco * I.Quantidade) * I.Desconto / 100)) AS TotalComDesconto
+        FROM ItensVendas I
+        INNER JOIN Vendas V ON I.idVenda = V.id
+        INNER JOIN CadProdutos P ON I.idProduto = P.id
+        WHERE V.id = " + idVenda;
 
             using (SqlConnection con = new SqlConnection(conexao))
             {
@@ -104,9 +105,23 @@ namespace Comercio_02
 
                 dataGridView.DataSource = dt;
 
+                // Formatar a coluna "TotalComDesconto" como moeda
+                if (dataGridView.Columns.Contains("TotalComDesconto"))
+                {
+                    dataGridView.Columns["TotalComDesconto"].DefaultCellStyle.Format = "C2";
+                    dataGridView.Columns["TotalComDesconto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+
+                if (dataGridView.Columns.Contains("Desconto"))
+                {
+                    dataGridView.Columns["Desconto"].DefaultCellStyle.Format = "P0"; // P0 = sem casas decimais (ex: 10%)
+                    dataGridView.Columns["Desconto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+
                 return dt;
             }
         }
+
 
 
         public DataTable PesquisaItemVenda(DataTable x, string txtPes)

@@ -27,7 +27,8 @@ namespace Comercio_02
 
         private void atualizarVendasDisponiveis()
         {
-            SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT idVenda FROM ItensVendas");
+            cbId.Items.Clear();
+            SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT id FROM Vendas");
             while (reader.Read())
             {
                 int id = reader.GetInt32(0);
@@ -37,6 +38,7 @@ namespace Comercio_02
 
             }
             cbId.Items.Add("");
+            cbId.SelectedIndex = cbId.Items.Count - 1;
         }
 
         private void btnSelecionarCliente_Click(object sender, EventArgs e)
@@ -69,64 +71,62 @@ namespace Comercio_02
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            try
+
+            // Validação de campos obrigatórios
+            if (string.IsNullOrEmpty(txtIdCliente.Text)||
+                string.IsNullOrEmpty(txtIdProduto.Text))
             {
-                // Validação de campos obrigatórios
-                if (string.IsNullOrEmpty(txtIdCliente.Text)||
-                    string.IsNullOrEmpty(txtIdProduto.Text) || string.IsNullOrEmpty(txtDesconto.Text))
-                {
-                    MessageBox.Show("Por favor, preencha todos os campos obrigatórios.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return; // Interrompe a execução do código caso algum campo esteja vazio
-                }
-
-                // Validação de tipos numéricos
-                if (!int.TryParse(txtIdCliente.Text, out int idCliente) ||
-                    !int.TryParse(txtIdProduto.Text, out int idProduto) ||
-                    !int.TryParse(txtDesconto.Text, out int desconto))
-                {
-                    MessageBox.Show("Por favor, preencha os campos com valores válidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return; // Interrompe a execução do código caso algum valor não seja um número válido
-                }
-
-                // Se a venda ainda não foi registrada, cria uma nova venda
-                if (cbId.SelectedItem == null || string.IsNullOrEmpty(cbId.SelectedItem.ToString()))
-                {
-                    conectaVendas.idCliente = idCliente;
-                    conectaVendas.DataCompra = dtDataCompra.Value;
-                    conectaVendas.InserirVenda();
-                    atualizarVendasDisponiveis();
-                    cbId.SelectedIndex = cbId.Items.Count - 2;
-                }
-
-                // Preenche os dados do item da venda
-                conectaItensVendas.idVenda = Int32.Parse(cbId.SelectedItem.ToString()); // ID da venda
-                conectaItensVendas.idProduto = idProduto; // ID do produto
-                conectaItensVendas.Quantidade = Int32.Parse(txtQuantidade.Text); // Quantidade (substitua conforme necessário)
-                conectaItensVendas.Desconto = desconto; // Desconto (substitua conforme necessário)
-                conectaItensVendas.InserirItemVenda();
-
-                // Atualiza a grid com os itens da venda
-                conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
-
-                // Atualiza o total da venda
-                txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
-
-
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Interrompe a execução do código caso algum campo esteja vazio
             }
-            catch (Exception ex)
+
+            // Validação de tipos numéricos
+            if (!int.TryParse(txtIdCliente.Text, out int idCliente) ||
+                !int.TryParse(txtIdProduto.Text, out int idProduto))
             {
-                // Em caso de erro inesperado, exibe a mensagem de erro
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Por favor, preencha os campos com valores válidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Interrompe a execução do código caso algum valor não seja um número válido
             }
+
+            // Se a venda ainda não foi registrada, cria uma nova venda
+            if (cbId.SelectedItem == null)
+            {
+                conectaVendas.idCliente = idCliente;
+                conectaVendas.DataCompra = dtDataCompra.Value;
+                conectaVendas.InserirVenda();
+                atualizarVendasDisponiveis();
+            }
+
+            // Preenche os dados do item da venda antes de esvaziar os campos trocando o id da venda
+            conectaItensVendas.idProduto = idProduto; // ID do produto
+            conectaItensVendas.Quantidade = ((int)nudQuantidade.Value); // Quantidade (substitua conforme necessário)
+            conectaItensVendas.Desconto = nudDesconto.Value; // Desconto (substitua conforme necessário)
+            //nudQuantidade.Value
+            if (cbId.SelectedText == "")
+            {
+                cbId.SelectedIndex = cbId.Items.Count - 2;
+            }
+
+            conectaItensVendas.idVenda = Int32.Parse(cbId.Text); // ID da venda
+            conectaItensVendas.InserirItemVenda();
+
+            // Atualiza a grid com os itens da venda
+            conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
+
+            // Atualiza o total da venda
+            txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
+
+
+
         }
 
         //ATUALIZA OS DADOS
         private void txtQuantidade_TextChanged(object sender, EventArgs e)
         {
-            if (txtQuantidade.Text != "" && txtPrecoUnitario.Text != "" && txtDesconto.Text != "")
+            if (txtPrecoUnitario.Text != "")
             {
-                int quantidade = Int32.Parse(txtQuantidade.Text);
-                decimal desconto = Decimal.Parse(txtDesconto.Text) / 100;
+                decimal quantidade = nudQuantidade.Value;
+                decimal desconto = nudDesconto.Value / 100;
                 decimal precoUnitario = Decimal.Parse(txtPrecoUnitario.Text);
                 decimal subtotal = quantidade * precoUnitario;
                 decimal totalDesconto = subtotal - (subtotal * desconto);
@@ -144,23 +144,19 @@ namespace Comercio_02
         private void cbId_SelectedIndexChanged(object sender, EventArgs e)
         {
             string idVenda = cbId.SelectedItem.ToString();
+            limparDados();
             if (cbId.SelectedItem.ToString() != "")
             {
-                SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM ItensVendas I INNER JOIN Vendas V ON I.idVenda = V.id INNER JOIN CadClientes C ON V.idCliente = C.id WHERE I.idVenda = " + idVenda);
+                //SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM ItensVendas I INNER JOIN Vendas V ON I.idVenda = V.id INNER JOIN CadClientes C ON V.idCliente = C.id WHERE I.idVenda = " + idVenda);
+                SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM Vendas V INNER JOIN CadClientes C ON V.idCliente = C.id WHERE V.id = " + idVenda);
                 if (reader.Read())
                 {
                     txtIdCliente.Text = reader.GetInt32(0).ToString();
                     txtNomeCliente.Text = reader.GetString(1).ToString();
                     conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
+                    conectaItensVendas.idVenda = Int32.Parse(cbId.Text); // ID da venda
+                    txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
                 }
-                else
-                {
-                    MessageBox.Show("Venda com id " + idVenda + " não existe!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                limparDados();
             }
         }
 
@@ -168,9 +164,9 @@ namespace Comercio_02
         {
             txtIdProduto.Clear();
             txtNomeProduto.Clear();
-            txtDesconto.Clear();
+            nudDesconto.Value = 0;
             txtPrecoUnitario.Clear();
-            txtQuantidade.Clear();
+            nudQuantidade.Value = 1;
             txtTotalSemDesconto.Clear();
             txtTotalComDesconto.Clear();
             txtIdCliente.Clear();
@@ -179,6 +175,27 @@ namespace Comercio_02
             dtgProdutos.Rows.Clear();
             dtgProdutos.Columns.Clear();
 
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow linhaSelecionada = dtgProdutos.SelectedRows[0];
+
+            int id = Convert.ToInt32(linhaSelecionada.Cells["id"].Value);
+            conectaItensVendas.id = id;
+            conectaItensVendas.ExcluirItemVenda();
+            conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
+            txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
+        }
+
+        private void txtTotalComDesconto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+                            cbId.SelectedIndex = cbId.Items.Count - 2;
         }
     }
 }
