@@ -13,96 +13,41 @@ namespace Comercio_02
 {
     public partial class CadClientes : Form
     {
-
-        public string conec = @"Data Source=JUN0675611W11-1\BDSENAC;
-                              Initial Catalog=BD_Comercio_02;
-                              Persist Security Info=True;
-                              User ID=senaclivre;Password=senaclivre";
-
-        public SqlConnection con = null;
-        SqlDataAdapter da = null;
-
-        //Replica tabelas
-        public int id { get; set; }
-        public string Cliente { get; set; }
-        public string Sobrenome { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public DateTime dataCadCli { get; set; }
+        ConectaCli cli = new ConectaCli();
 
         public CadClientes()
         {
             InitializeComponent();
         }
 
-        private void txtidcliente_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnInserir_Click(object sender, EventArgs e)
         {
-            string sql;
-            SqlCommand cmd;
-            con = new SqlConnection(conec);
-            sql = "INSERT INTO CadClientes (Cliente, Sobrenome, Telefone, Email, dataCadCli) " +
-                "VALUES (@Cliente, @Sobrenome, @Telefone, @Email, @dataCadCli)";
-            con.Open();
-            cmd = new SqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@Cliente", txtcliente.Text);
-            cmd.Parameters.AddWithValue("@Sobrenome", txtsobrenome.Text);
-            cmd.Parameters.AddWithValue("@Telefone", txttelefone.Text);
-            cmd.Parameters.AddWithValue("@Email", txtemail.Text);
-            cmd.Parameters.AddWithValue("@dataCadCli", txtdata.Text);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Registro adicionado!");
-            con.Close();
+            cli.Cliente = txtcliente.Text;
+            cli.Sobrenome = txtsobrenome.Text;
+            cli.Telefone = txttelefone.Text;
+            cli.Email = txtemail.Text;
+            cli.dataCadCli = DateTime.Parse(txtdata.Text);
+            cli.InserirCadcli();
+            cli.AtualizaGride(dgCadClientes);
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            string sql;
-            SqlCommand cmd;
-            con = new SqlConnection(conec);
-            sql = "update CadClientes set Cliente = @Cliente, Sobrenome = @Sobrenome, " +
-                "Telefone=@Telefone, Email=@Email, dataCadCli=@dataCadCli where id = @id";
-
-            con.Open();
-            cmd = new SqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@id", txtidcliente.Text);
-            cmd.Parameters.AddWithValue("@Cliente", txtcliente.Text);
-            cmd.Parameters.AddWithValue("@Sobrenome", txtsobrenome.Text);
-            cmd.Parameters.AddWithValue("@Telefone", txttelefone.Text);
-            cmd.Parameters.AddWithValue("@Email", txtemail.Text);
-            cmd.Parameters.AddWithValue("@dataCadCli", txtdata.Text);
-
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Registro Alterado!");
-            con.Close();
+            cli.id = Int32.Parse(txtidcliente.Text);
+            cli.Cliente = txtcliente.Text;
+            cli.Sobrenome = txtsobrenome.Text;
+            cli.Telefone = txttelefone.Text;
+            cli.Email = txtemail.Text;
+            cli.dataCadCli = DateTime.Parse(txtdata.Text);
+            cli.AlterarCadcli();
+            cli.AtualizaGride(dgCadClientes);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            string sql;
-            SqlCommand cmd;
-            con = new SqlConnection(conec);
-            sql = "DELETE FROM CadClientes WHERE id=@id";
-            con.Open();
-            cmd = new SqlCommand(sql, con);
-            cmd.Parameters.AddWithValue("@id", txtidcliente.Text);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Registro Excluido!");
-            con.Close();
-        }
-
-        private void dgCadClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void txtPesquisaCadCli_TextChanged(object sender, EventArgs e)
-        {
-
+            cli.id = Int32.Parse(txtidcliente.Text);
+            cli.ExcluirCadcli();
+            cli.AtualizaGride(dgCadClientes);
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)

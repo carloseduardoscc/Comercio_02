@@ -46,7 +46,6 @@
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnInserir = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
-            this.btnpesquisar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgCadClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +97,6 @@
             this.txtidcliente.Name = "txtidcliente";
             this.txtidcliente.Size = new System.Drawing.Size(76, 20);
             this.txtidcliente.TabIndex = 13;
-            this.txtidcliente.TextChanged += new System.EventHandler(this.txtidcliente_TextChanged);
             // 
             // lblDataCliente
             // 
@@ -167,13 +165,12 @@
             this.dgCadClientes.Name = "dgCadClientes";
             this.dgCadClientes.Size = new System.Drawing.Size(296, 150);
             this.dgCadClientes.TabIndex = 19;
-            this.dgCadClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCadClientes_CellContentClick);
             // 
             // txtPesquisaCadCli
             // 
             this.txtPesquisaCadCli.Location = new System.Drawing.Point(14, 154);
             this.txtPesquisaCadCli.Name = "txtPesquisaCadCli";
-            this.txtPesquisaCadCli.Size = new System.Drawing.Size(218, 20);
+            this.txtPesquisaCadCli.Size = new System.Drawing.Size(296, 20);
             this.txtPesquisaCadCli.TabIndex = 20;
             // 
             // btnExcluir
@@ -225,7 +222,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 360);
-            this.Controls.Add(this.btnpesquisar);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnAlterar);
@@ -272,6 +268,5 @@
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnInserir;
         private System.Windows.Forms.Button btnLimpar;
-        private System.Windows.Forms.Button btnpesquisar;
     }
 }

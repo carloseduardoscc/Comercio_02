@@ -23,7 +23,7 @@ namespace Comercio_02
 
         // Propriedades para a tabela ItensVendas
         public int id { get; set; }
-        public int idVenda { get; set; }   // Chave estrangeira para Vendas
+        public string idVenda { get; set; }   // Chave estrangeira para Vendas
         public int idProduto { get; set; }  // Chave estrangeira para Produtos
         public int Quantidade { get; set; }
         public decimal Desconto { get; set; }

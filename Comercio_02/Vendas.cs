@@ -37,7 +37,7 @@ namespace Comercio_02
                 }
 
             }
-            cbId.Items.Add("");
+            cbId.Items.Add("NOVA VENDA");
             cbId.SelectedIndex = cbId.Items.Count - 1;
         }
 
@@ -89,7 +89,7 @@ namespace Comercio_02
             }
 
             // Se a venda ainda não foi registrada, cria uma nova venda
-            if (cbId.SelectedItem == null)
+            if (cbId.SelectedValue == null)
             {
                 conectaVendas.idCliente = idCliente;
                 conectaVendas.DataCompra = dtDataCompra.Value;
@@ -102,12 +102,12 @@ namespace Comercio_02
             conectaItensVendas.Quantidade = ((int)nudQuantidade.Value); // Quantidade (substitua conforme necessário)
             conectaItensVendas.Desconto = nudDesconto.Value; // Desconto (substitua conforme necessário)
             //nudQuantidade.Value
-            if (cbId.SelectedText == "")
+            if (cbId.SelectedItem == "NOVA VENDA")
             {
                 cbId.SelectedIndex = cbId.Items.Count - 2;
             }
 
-            conectaItensVendas.idVenda = Int32.Parse(cbId.Text); // ID da venda
+            conectaItensVendas.idVenda = cbId.Text; // ID da venda
             conectaItensVendas.InserirItemVenda();
 
             // Atualiza a grid com os itens da venda
@@ -145,7 +145,7 @@ namespace Comercio_02
         {
             string idVenda = cbId.SelectedItem.ToString();
             limparDados();
-            if (cbId.SelectedItem.ToString() != "")
+            if (cbId.SelectedItem.ToString() != "NOVA VENDA")
             {
                 //SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM ItensVendas I INNER JOIN Vendas V ON I.idVenda = V.id INNER JOIN CadClientes C ON V.idCliente = C.id WHERE I.idVenda = " + idVenda);
                 SqlDataReader reader = conectaItensVendas.consultaPersonalizada("SELECT C.id, C.Cliente FROM Vendas V INNER JOIN CadClientes C ON V.idCliente = C.id WHERE V.id = " + idVenda);
@@ -154,7 +154,7 @@ namespace Comercio_02
                     txtIdCliente.Text = reader.GetInt32(0).ToString();
                     txtNomeCliente.Text = reader.GetString(1).ToString();
                     conectaItensVendas.AtualizaGride(dtgProdutos, Int32.Parse(cbId.SelectedItem.ToString()));
-                    conectaItensVendas.idVenda = Int32.Parse(cbId.Text); // ID da venda
+                    conectaItensVendas.idVenda = cbId.Text; // ID da venda
                     txtTotal.Text = conectaItensVendas.CalcularTotalVenda().ToString();
                 }
             }
