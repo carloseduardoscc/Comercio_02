@@ -75,20 +75,20 @@
             this.clientesToolStripMenuItem,
             this.produtosToolStripMenuItem});
             this.cadastrosBásicosToolStripMenuItem.Name = "cadastrosBásicosToolStripMenuItem";
-            this.cadastrosBásicosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cadastrosBásicosToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.cadastrosBásicosToolStripMenuItem.Text = "Cadastros básicos";
             // 
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.clientesToolStripMenuItem.Text = "Clientes";
             this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // produtosToolStripMenuItem
             // 
             this.produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
-            this.produtosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.produtosToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.produtosToolStripMenuItem.Text = "Produtos";
             this.produtosToolStripMenuItem.Click += new System.EventHandler(this.produtosToolStripMenuItem_Click);
             // 
@@ -97,7 +97,6 @@
             this.controleDeEstoqueToolStripMenuItem.Name = "controleDeEstoqueToolStripMenuItem";
             this.controleDeEstoqueToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.controleDeEstoqueToolStripMenuItem.Text = "Controle de Estoque";
-            this.controleDeEstoqueToolStripMenuItem.Click += new System.EventHandler(this.controleDeEstoqueToolStripMenuItem_Click);
             // 
             // vendasToolStripMenuItem
             // 
@@ -111,6 +110,7 @@
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.sairToolStripMenuItem.Text = "Sair";
+            this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
             // Comercio
             // 

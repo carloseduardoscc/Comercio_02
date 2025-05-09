@@ -18,6 +18,7 @@ namespace Comercio_02
         public CadClientes()
         {
             InitializeComponent();
+            cli.AtualizaGride(dgCadClientes);
         }
 
         private void btnInserir_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace Comercio_02
             cli.dataCadCli = DateTime.Parse(txtdata.Text);
             cli.InserirCadcli();
             cli.AtualizaGride(dgCadClientes);
+            btnLimpar_Click(sender, e);
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)

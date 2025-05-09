@@ -80,7 +80,7 @@ namespace Comercio_02
             sql = "DELETE FROM CadClientes WHERE id=@id";
             con.Open();
             cmd = new SqlCommand (sql, con);
-            cmd.Parameters.AddWithValue("@idcliente", id);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery ();
             MessageBox.Show("Registro Excluído!");
             con.Close();

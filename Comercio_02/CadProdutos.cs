@@ -47,6 +47,7 @@ namespace Comercio_02
             prod.Data = DateTime.Parse(txtdatacadproduto.Text);
             prod.InserirProduto();
             prod.AtualizaGride(dgCadClientes);
+            btnLimpar_Click(sender, e);
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)

@@ -30,16 +30,16 @@ namespace Comercio_02
             cadProdutos.Show(); 
         }
 
-        private void controleDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CadEstoque cadEstoque = new CadEstoque();
-            cadEstoque.Show();
-        }
-
         private void vendasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Vendas vendas = new Vendas();
             vendas.Show();
+        }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

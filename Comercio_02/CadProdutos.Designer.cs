@@ -53,24 +53,24 @@
             // 
             this.txtPesquisaCadCli.Location = new System.Drawing.Point(9, 161);
             this.txtPesquisaCadCli.Name = "txtPesquisaCadCli";
-            this.txtPesquisaCadCli.Size = new System.Drawing.Size(296, 20);
+            this.txtPesquisaCadCli.Size = new System.Drawing.Size(681, 20);
             this.txtPesquisaCadCli.TabIndex = 38;
             // 
             // dgCadClientes
             // 
             this.dgCadClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgCadClientes.Location = new System.Drawing.Point(9, 187);
+            this.dgCadClientes.Location = new System.Drawing.Point(10, 187);
             this.dgCadClientes.Name = "dgCadClientes";
-            this.dgCadClientes.Size = new System.Drawing.Size(296, 150);
+            this.dgCadClientes.Size = new System.Drawing.Size(681, 348);
             this.dgCadClientes.TabIndex = 37;
             // 
             // btnLimpar
             // 
             this.btnLimpar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnLimpar.Location = new System.Drawing.Point(235, 352);
+            this.btnLimpar.Location = new System.Drawing.Point(427, 540);
             this.btnLimpar.Margin = new System.Windows.Forms.Padding(2);
             this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(56, 19);
+            this.btnLimpar.Size = new System.Drawing.Size(64, 26);
             this.btnLimpar.TabIndex = 52;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = true;
@@ -79,10 +79,10 @@
             // btnExcluir
             // 
             this.btnExcluir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnExcluir.Location = new System.Drawing.Point(165, 352);
+            this.btnExcluir.Location = new System.Drawing.Point(357, 540);
             this.btnExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(56, 19);
+            this.btnExcluir.Size = new System.Drawing.Size(64, 26);
             this.btnExcluir.TabIndex = 51;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
@@ -91,10 +91,10 @@
             // btnAlterar
             // 
             this.btnAlterar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnAlterar.Location = new System.Drawing.Point(90, 352);
+            this.btnAlterar.Location = new System.Drawing.Point(282, 540);
             this.btnAlterar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAlterar.Name = "btnAlterar";
-            this.btnAlterar.Size = new System.Drawing.Size(56, 19);
+            this.btnAlterar.Size = new System.Drawing.Size(64, 26);
             this.btnAlterar.TabIndex = 50;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
@@ -103,10 +103,10 @@
             // btnInserir
             // 
             this.btnInserir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInserir.Location = new System.Drawing.Point(20, 352);
+            this.btnInserir.Location = new System.Drawing.Point(212, 540);
             this.btnInserir.Margin = new System.Windows.Forms.Padding(2);
             this.btnInserir.Name = "btnInserir";
-            this.btnInserir.Size = new System.Drawing.Size(56, 19);
+            this.btnInserir.Size = new System.Drawing.Size(64, 26);
             this.btnInserir.TabIndex = 49;
             this.btnInserir.Text = "Inserir";
             this.btnInserir.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@
             this.txtmodelo.Location = new System.Drawing.Point(63, 79);
             this.txtmodelo.Margin = new System.Windows.Forms.Padding(2);
             this.txtmodelo.Name = "txtmodelo";
-            this.txtmodelo.Size = new System.Drawing.Size(242, 20);
+            this.txtmodelo.Size = new System.Drawing.Size(627, 20);
             this.txtmodelo.TabIndex = 47;
             // 
             // txtmarca
@@ -135,7 +135,7 @@
             this.txtmarca.Location = new System.Drawing.Point(63, 56);
             this.txtmarca.Margin = new System.Windows.Forms.Padding(2);
             this.txtmarca.Name = "txtmarca";
-            this.txtmarca.Size = new System.Drawing.Size(242, 20);
+            this.txtmarca.Size = new System.Drawing.Size(627, 20);
             this.txtmarca.TabIndex = 46;
             // 
             // txtProduto
@@ -143,7 +143,7 @@
             this.txtProduto.Location = new System.Drawing.Point(63, 33);
             this.txtProduto.Margin = new System.Windows.Forms.Padding(2);
             this.txtProduto.Name = "txtProduto";
-            this.txtProduto.Size = new System.Drawing.Size(242, 20);
+            this.txtProduto.Size = new System.Drawing.Size(627, 20);
             this.txtProduto.TabIndex = 45;
             // 
             // txtidCadproduto
@@ -233,7 +233,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(320, 379);
+            this.ClientSize = new System.Drawing.Size(702, 577);
             this.Controls.Add(this.txtPreco);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnExcluir);

@@ -52,12 +52,6 @@
     <Compile Include="CadClientes.Designer.cs">
       <DependentUpon>CadClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="CadEstoque.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CadEstoque.Designer.cs">
-      <DependentUpon>CadEstoque.cs</DependentUpon>
-    </Compile>
     <Compile Include="CadProdutos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,9 +90,6 @@
     </Compile>
     <EmbeddedResource Include="CadClientes.resx">
       <DependentUpon>CadClientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CadEstoque.resx">
-      <DependentUpon>CadEstoque.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CadProdutos.resx">
       <DependentUpon>CadProdutos.cs</DependentUpon>
